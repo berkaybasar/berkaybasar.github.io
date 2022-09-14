@@ -1,7 +1,7 @@
 package main
 
 /*
-ONE PUNCH  BY brky
+ONE PUNCH  BY B
 USE: S=500 ./ex -site http://example.com
 */
 
@@ -121,7 +121,7 @@ func main() {
 	}
 
 	go func() {
-		fmt.Println("--@berkaybasar87--\n")
+		fmt.Println("--@QuelMafia--\n")
 		ss := make(chan uint8, 8)
 		var (
 			err, sent int32
