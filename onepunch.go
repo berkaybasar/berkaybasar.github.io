@@ -1,7 +1,7 @@
 package main
 
 /*
-ONE PUNCH  BY B
+ONE PUNCH  BY QuelMafia
 USE: S=500 ./ex -site http://example.com
 */
 
